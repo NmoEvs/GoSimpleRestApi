@@ -2,6 +2,9 @@ package main
 
 import (
 	"os"
+	"strconv"
+
+	lorem "github.com/drhodes/golorem"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -17,15 +20,41 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.GET("/debug", func(c *gin.Context) {
+	r.GET("/logs/:number/create", func(c *gin.Context) {
+		nbLogs, err := strconv.Atoi(c.Param("number"))
+		if err != nil {
+			panic("Oops something goes wrong")
+		}
 		uuid, err := uuid.NewRandom()
 		if err != nil {
 			panic("Oops something goes wrong")
 		}
-		log.WithField("DiscusionID", uuid).Debug("Debug message appears !!")
+
+		for i := 0; i < nbLogs; i++ {
+			log.WithField("DiscusionID", uuid)
+
+			switch {
+			case i%2 == 0:
+				log.Debug(lorem.Sentence(5, 10))
+				break
+			case i%3 == 0:
+				log.Info("Info Log Appears !!!")
+				break
+			case i == 4:
+				log.Warn("Warn Log Appears !!!")
+				break
+			case i == 5:
+				log.Error(lorem.Paragraph(20, 40))
+				break
+
+			default:
+				log.Trace(lorem.Word(5, 10))
+			}
+		}
+
 		c.JSON(200, gin.H{
-			"message": "debug",
+			"message": "Log Created",
 		})
 	})
-	r.Run(":8080")
+	r.Run(":5000")
 }

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplerestapi
+  namespace: simplerestapi
+  labels:
+    app: my-first-app
+spec:  
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simplerestapi
+  template:
+    metadata:
+      labels:
+        app: simplerestapi
+    spec:
+      containers:
+      - name: simple-rest-api
+        image: k8s/simplerestapi:v2
+        imagePullPolicy: Never
+        resources: 
+          limits:
+            cpu: 100m
+            memory: 250Mi
+          requests:
+            cpu: 10m
+            memory: 125Mi

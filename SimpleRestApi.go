@@ -68,14 +68,12 @@ func worker() {
 		select {
 
 		case <-data:
-			fmt.Println("The channel is closed!")
 			return
 		default:
 			for i := 0; i < rand.Intn(500); i++ {
-				fmt.Println("Into the loop 2")
 				GenerateRandomLog(i)
 			}
-			time.Sleep(time.Second * 1)
+			time.Sleep(time.Second * 10)
 		}
 	}
 }

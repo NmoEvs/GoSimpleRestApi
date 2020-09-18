@@ -21,12 +21,12 @@ kubeadmConfigPatchesJSON6902:
 # 1 control plane node and 3 workers
 nodes:
 # the control plane node config
-- role: control-plane  
-# the three workers
-- role: worker
+- role: control-plane
   extraPortMappings:
   - containerPort: 30001
     hostPort: 8080
+# the three workers
+- role: worker  
 - role: worker
 - role: worker
   

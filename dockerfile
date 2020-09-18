@@ -7,6 +7,7 @@ RUN apk update && apk upgrade && \
 RUN go get github.com/sirupsen/logrus
 RUN go get github.com/gin-gonic/gin
 RUN go get github.com/google/uuid
+RUN go get github.com/drhodes/golorem
 
 WORKDIR /work
 COPY . /work/

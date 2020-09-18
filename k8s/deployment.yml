@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: simple-rest-api
-        image: k8s/simplerestapi:v2
+        image: k8s/simplerestapi:v3.1
         imagePullPolicy: Never
         resources: 
           limits:

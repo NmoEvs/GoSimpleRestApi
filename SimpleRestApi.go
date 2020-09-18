@@ -65,19 +65,18 @@ func worker() {
 		waitGroup.Done()
 	}()
 	for {
-		fmt.Println("Into the loop 1")
-		_, ok := <-data
+		select {
 
-		if !ok {
+		case <-data:
 			fmt.Println("The channel is closed!")
-			break
+			return
+		default:
+			for i := 0; i < rand.Intn(500); i++ {
+				fmt.Println("Into the loop 2")
+				GenerateRandomLog(i)
+			}
+			time.Sleep(time.Second * 1)
 		}
-
-		for i := 0; i < rand.Intn(500); i++ {
-			fmt.Println("Into the loop 2")
-			GenerateRandomLog(i)
-		}
-		time.Sleep(time.Second * 1)
 	}
 }
 

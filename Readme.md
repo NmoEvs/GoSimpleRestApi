@@ -17,3 +17,11 @@
      kubectl apply -f ./k8s 
 
 ## 5. [Install Loki Stack](https://hub.helm.sh/charts/loki/loki-stack)
+
+    Usefull command recap :
+    kubectl create ns loki-stack
+    helm upgrade --install loki --namespace=loki-stack loki/loki-stack --set grafana.enabled=true
+    kubectl get secret --namespace loki-stack loki-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+    kubectl port-forward --namespace loki-stack service/loki-grafana 3000:80
+
+    Click on the link to have further explanations

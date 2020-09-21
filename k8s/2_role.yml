@@ -1,0 +1,29 @@
+#kubectl create rolebinding simplerestapi \
+#  --clusterrole=view \
+#  --serviceaccount=simplerestapi:simplerestapi \
+#  --namespace=simplerestapi
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: simplerestapi
+  name: pod-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list","view"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: simplerestapi
+  name: k8sRoleBindingForMicroService
+subjects:
+  - kind: ServiceAccount
+    name: serviceaccountforapi
+    namespace: simplerestapi    
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io

@@ -1,18 +1,26 @@
 package main
 
 import (
+	"context"
+	"flag"
 	"fmt"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strconv"
 	"sync"
 	"time"
 
-	lorem "github.com/drhodes/golorem"
-	log "github.com/sirupsen/logrus"
+	"k8s.io/client-go/rest"
 
+	"k8s.io/client-go/tools/clientcmd"
+
+	lorem "github.com/drhodes/golorem"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	log "github.com/sirupsen/logrus"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/client-go/kubernetes"
 )
 
 var waitGroup sync.WaitGroup
@@ -54,6 +62,48 @@ func main() {
 		close(data)
 		waitGroup.Wait()
 	})
+	r.GET("/outside/k8s", func(c *gin.Context) {
+		home := os.Getenv("HOME")
+		kubeconfig := flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+		// use the current context in kubeconfig
+		config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		// create the clientset
+		clientset, err := kubernetes.NewForConfig(config)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		pods, err := clientset.CoreV1().Pods("").List(context.TODO(), metav1.ListOptions{})
+		if err != nil {
+			panic(err.Error())
+		}
+
+		c.String(200, fmt.Sprintf("There are %d pods in the cluster\n", len(pods.Items)))
+
+	})
+
+	r.GET("/inside/k8s", func(c *gin.Context) {
+		config, err := rest.InClusterConfig()
+		if err != nil {
+			panic(err.Error())
+		}
+		// creates the clientset
+		clientset, err := kubernetes.NewForConfig(config)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		pods, err := clientset.CoreV1().Pods("simplerestapi").List(context.TODO(), metav1.ListOptions{})
+		if err != nil {
+			panic(err.Error())
+		}
+
+		c.String(200, fmt.Sprintf("There are %d pods in the cluster\n", len(pods.Items)))
+	})
 
 	r.Run(":8080")
 }
@@ -73,7 +123,7 @@ func worker() {
 			for i := 0; i < rand.Intn(500); i++ {
 				GenerateRandomLog(i)
 			}
-			time.Sleep(time.Second * 10)
+			time.Sleep(time.Second * 5)
 		}
 	}
 }

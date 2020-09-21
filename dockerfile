@@ -8,6 +8,10 @@ RUN go get github.com/sirupsen/logrus
 RUN go get github.com/gin-gonic/gin
 RUN go get github.com/google/uuid
 RUN go get github.com/drhodes/golorem
+RUN go get k8s.io/client-go/rest
+RUN go get k8s.io/client-go/tools/clientcmd
+RUN go get k8s.io/apimachinery/pkg/apis/meta/v1
+RUN go get k8s.io/client-go/kubernetes
 
 WORKDIR /work
 COPY . /work/

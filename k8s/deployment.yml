@@ -15,9 +15,10 @@ spec:
       labels:
         app: simplerestapi
     spec:
+      serviceAccountName: serviceaccountforapi
       containers:
       - name: simple-rest-api
-        image: k8s/simplerestapi:v4.1
+        image: k8s/simplerestapi:v4.2.1
         imagePullPolicy: Never
         resources: 
           limits:

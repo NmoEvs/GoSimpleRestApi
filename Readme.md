@@ -25,3 +25,8 @@
     kubectl port-forward --namespace loki-stack service/loki-grafana 3000:80
 
     Click on the link to have further explanations
+
+## 6. Add 2 new Api to Query K8S
+
+    /inside/k8s ==> Query k8s from service inside the cluster
+    /outside/k8s ==> Query from service outside the cluster

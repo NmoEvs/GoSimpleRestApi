@@ -18,8 +18,19 @@ spec:
       serviceAccountName: serviceaccountforapi
       containers:
       - name: simple-rest-api
-        image: k8s/simplerestapi:v4.3.0pl
+        image: k8s/simplerestapi:v4.4.0
         imagePullPolicy: Never
+        env:
+          - name: KEY-1
+            valueFrom:
+              configMapKeyRef:
+                name: env-config
+                key: key-1
+          - name: KEY-2
+            valueFrom:
+              configMapKeyRef:
+                name: env-config
+                key: key-2  
         resources: 
           limits:
             cpu: 100m

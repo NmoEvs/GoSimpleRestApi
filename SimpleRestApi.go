@@ -105,7 +105,7 @@ func main() {
 
 		c.String(200, fmt.Sprintf("There are %d pods in the cluster\n", len(pods.Items)))
 	})
-	r.GET("/config", func(c *gin.Context) {
+	r.GET("/config/file", func(c *gin.Context) {
 		content, error := ioutil.ReadFile("/configs/config.json")
 
 		_, err := os.Stat("/configs/config.json")
@@ -113,13 +113,15 @@ func main() {
 			log.Warn("File not exist")
 		}
 
-		//log.Info("IS Dir : %t ?", fileInfo.IsDir())
-
 		if error != nil {
 			panic("Could not read config file")
 		}
 
 		c.String(200, string(content))
+	})
+	r.GET("/config/env", func(c *gin.Context) {
+		content := os.Environ()
+		c.String(200, fmt.Sprintf("%v", content))
 	})
 
 	r.Run(":8080")

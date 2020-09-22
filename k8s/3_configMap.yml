@@ -8,3 +8,12 @@ data:
     {
       "test" : "nmo"
     }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace : simplerestapi
+  name: env-config      
+data:
+  key-1: "value 1"
+  key-2: "value 2"

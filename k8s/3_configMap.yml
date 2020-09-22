@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace : simplerestapi
+  name: example-config
+data:
+  config.json: |
+    {
+      "test" : "nmo"
+    }

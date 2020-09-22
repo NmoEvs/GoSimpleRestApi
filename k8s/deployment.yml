@@ -18,7 +18,7 @@ spec:
       serviceAccountName: serviceaccountforapi
       containers:
       - name: simple-rest-api
-        image: k8s/simplerestapi:v4.2.1
+        image: k8s/simplerestapi:v4.3.0pl
         imagePullPolicy: Never
         resources: 
           limits:
@@ -27,3 +27,10 @@ spec:
           requests:
             cpu: 10m
             memory: 125Mi
+        volumeMounts:
+        - name: config-volume
+          mountPath: /configs/
+      volumes:
+      - name : config-volume
+        configMap:
+         name: example-config

@@ -1,0 +1,12 @@
+prometheus:
+  prometheusSpec:
+    remoteWrite:
+      - url: "http://vmsinsert.monitoring.svc.cluster.local:8480/insert/0/prometheus/"
+grafana:
+  adminPassword: evsadmi!
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: false

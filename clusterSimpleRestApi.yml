@@ -25,6 +25,9 @@ nodes:
   extraPortMappings:
   - containerPort: 30001
     hostPort: 8080
+    #grafana Port
+  - containerPort: 30999
+    hostPort: 3000
 # the three workers
 - role: worker  
 - role: worker

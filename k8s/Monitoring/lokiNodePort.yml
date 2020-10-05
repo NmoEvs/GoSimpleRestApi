@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  loki-port
+  namespace: monitoring
+spec:
+  type:  NodePort 
+  selector:    
+    app: loki
+  ports:
+  - protocol: TCP
+    nodePort: 30903
+    port:  3100
+    targetPort:  3100

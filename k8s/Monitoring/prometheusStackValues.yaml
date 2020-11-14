@@ -1,7 +1,7 @@
-prometheus:
+prometheus:  
   prometheusSpec:
     remoteWrite:
-      - url: "http://vmsinsert.monitoring.svc.cluster.local:8480/insert/0/prometheus/"
+       - url: http://vmetrics-victoria-metrics-single-server:8428/api/v1/write
 grafana:
   adminPassword: evsadmi!
   sidecar:
@@ -10,3 +10,6 @@ grafana:
     datasources:
       enabled: true
       defaultDatasourceEnabled: false
+  grafana.ini:
+    server:
+      root_url: http://10.129.134.153/grafana #Ip Address must be fullfil with varriables

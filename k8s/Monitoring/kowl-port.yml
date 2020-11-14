@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kowl-port  
+  namespace: monitoring
+spec:
+  type: NodePort 
+  selector:    
+    app.kubernetes.io/name: kowl
+  ports:
+  - protocol: TCP
+    nodePort: 30083
+    port:  80
+    targetPort: 8080

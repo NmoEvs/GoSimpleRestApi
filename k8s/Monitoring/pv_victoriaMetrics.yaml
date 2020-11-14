@@ -2,24 +2,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   namespace: monitoring
-  name: pv-victoria-metrics-0
-  labels:
-    type: local
-spec:
-  storageClassName: victoria-metrics-storageclass
-  capacity:
-    storage: 16Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data/victoria-metrics"
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  namespace: monitoring
-  name: pv-victoria-metrics-1
+  name: pv-victoria-metrics
   labels:
     type: local
 spec:

@@ -1,8 +1,9 @@
+# No Needed at this time
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  labels:
-    grafana_dashboard: "1"
+  #labels:
+   # grafana_dashboard: "1"
   name: grafana-dashboards-configmap
   namespace: monitoring
 data:

@@ -1,0 +1,22 @@
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+kowl:
+  # See reference config: https://github.com/cloudhut/kowl/blob/master/docs/config/kowl.yaml)
+  config:
+    kafka:
+      brokers:
+        - evs-ipd-via-kafka-kafka-bootstrap.ipd-via:9092  
+    server:
+      listenPort: 8080
+      readTimeout: 30s
+      writeTimeout: 30s
+      idleTimeout: 30s
+      compressionLevel: 4
+      basePath: /kowl # Sub-path under which kowl is hosted. See 'docs/features/hosting.md' for more information
+        

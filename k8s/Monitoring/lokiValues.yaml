@@ -1,0 +1,10 @@
+loki:
+  persistence:
+    type: pvc
+    enabled: true
+    storageClassName: "loki-storageclass"
+  resources: {}
+  securityContext:
+    runAsGroup: 0
+    runAsNonRoot: false
+    runAsUser: 0

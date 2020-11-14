@@ -1,13 +1,3 @@
-vminsert:
-  fullnameOverride: vmsinsert
-vmselect:
-  fullnameOverride: vmselect
-  service:
-    labels:
-      name: vmselect
-vmstorage:
-  fullnameOverride: vmstorage
+server:
   persistentVolume:
-    existingClaim: "victoria-smetrics-pvc"
-    annotations:
-      volume.beta.kubernetes.io/storage-class: victoria-metrics-storageclass
+    storageClass: victoria-metrics-storageclass

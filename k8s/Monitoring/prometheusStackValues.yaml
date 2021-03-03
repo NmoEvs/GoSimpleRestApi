@@ -3,7 +3,7 @@ prometheus:
     remoteWrite:
        - url: http://vmetrics-victoria-metrics-single-server:8428/api/v1/write
 grafana:
-  adminPassword: evsadmi!
+  adminPassword: xxxxx
   sidecar:
     dashboards:
       enabled: true
